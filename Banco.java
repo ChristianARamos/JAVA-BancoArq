@@ -6,6 +6,8 @@ package br.graduacao.banco;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -28,7 +30,7 @@ public class Banco {
         }
     }
     
-    public Connection conectarPostgreSQL(){
+    public Connection conectarBanco(){
         if(connec == null){
             try{
                 connec=DriverManager.getConnection(URL+DB,OWNER,PASS);
@@ -40,7 +42,7 @@ public class Banco {
         return connec;
     }
     
-    public void desconectarPostgreSQL(){
+    public void desconectarBanco(){
         try{
             connec.close();
             connec = null;
@@ -49,22 +51,74 @@ public class Banco {
             System.out.println("Erro ao fechar o banco de dados!"+e);
         }
     }
-    
-    public void inserirDados(String dado){
-    
+    //======= Inserir Dados =======
+    /**
+     * @param matr
+     * @param nome
+     * @param curso
+     * @param discipl
+     * @param turma
+     * @param ano
+     * @param sem
+     */
+    public void inserirDados(int matr, String nome, String curso, String discipl, int turma, int ano, int sem){
+        try{
+            String sql="Insert into alunos(matricula, nome, curso, disciplina, "+
+                    "turma, ano, semestre) values(?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = conectarBanco().prepareStatement(sql);
+            ps.setInt(1, matr);
+            ps.setString(2, nome);
+            ps.setString(3, curso);
+            ps.setString(4, discipl);
+            ps.setInt(5, turma);
+            ps.setInt(6, ano);
+            ps.setInt(7, sem);
+            
+            ps.execute();
+            ps.close();
+            desconectarBanco();
+            System.out.println("Dados inseridos!");
+        }catch(SQLException e){
+            System.out.println("Erro ao inserir dados no banco.\n"+e);
+        }
     }
-    
+    //======= Listar Dados =======
     public String listarDados(){
-        
-        
-        return null;
+        String result="";
+        try{    
+            String sql="select * from alunos";
+            PreparedStatement ps = conectarBanco().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                result += rs.getInt("matricula")+", "+rs.getString("nome")+", "
+                        +rs.getString("curso")+", "+rs.getString("disciplina")+", "
+                        +rs.getInt("turma")+", "+rs.getInt("ano")+", "+rs.getInt("semestre")+"\n";
+            }
+            rs.close();
+            desconectarBanco();
+        }catch(SQLException e){
+            System.out.println("Erro ao listar dados.\n"+e);
+        }
+        return result;
+    }
+    /**
+     * ======= Atualizar Dados =======
+     * @param dados*/
+    public void atualizarDados(String dados){
+    
     }
     
-    public void atualizarDados(String dado){
-    
-    }
-    
+    //======= Apagar Dados =======
     public void apagarDados(){
-    
+        try{
+            String sql="delete from alunos";
+            PreparedStatement ps=conectarBanco().prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+            desconectarBanco();
+            
+        }catch(SQLException e){
+            System.out.println("Erro ao apagar dados da tabela."+e);
+        }
     }
 }
