@@ -14,6 +14,10 @@ import java.sql.SQLException;
  */
 public class Banco {
     Connection connec;
+    String URL="jdbc:postgresql://localhost:5432/";
+    String DB="ProjetoPOOII";
+    String OWNER="postgres";
+    String PASS="root";
     public Banco(){
         try{
             Class.forName("org.postgresql.Driver");
@@ -25,13 +29,12 @@ public class Banco {
     }
     
     public Connection conectarPostgreSQL(){
-        String db="ProjetoPOOII";
         if(connec == null){
             try{
-                connec=DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+db,"postgres","root");
-                System.out.println("PostgreSQL - "+db+" conectado com sucesso!");
+                connec=DriverManager.getConnection(URL+DB,OWNER,PASS);
+                System.out.println(DB+" conectado com sucesso!");
             }catch(SQLException e){
-                System.out.println("Erro ao conectar "+db+"."+e);
+                System.out.println("Erro ao conectar banco "+DB+"."+e);
             }
         }
         return connec;
@@ -41,8 +44,27 @@ public class Banco {
         try{
             connec.close();
             connec = null;
+            System.out.println(DB+" desconectado!");
         }catch(SQLException e){
             System.out.println("Erro ao fechar o banco de dados!"+e);
         }
+    }
+    
+    public void inserirDados(String dado){
+    
+    }
+    
+    public String listarDados(){
+        
+        
+        return null;
+    }
+    
+    public void atualizarDados(String dado){
+    
+    }
+    
+    public void apagarDados(){
+    
     }
 }
