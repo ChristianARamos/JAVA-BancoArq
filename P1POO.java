@@ -26,6 +26,8 @@ public class P1POO {
         
         TratarArquivo ta = new TratarArquivo(caminho);
         ta.criarArq("Teste000.txt");
+        String dados = ta.lerDados("Teste 1.txt");
+        ta.gravarDados(dados, "Teste000.txt");
     }
     
 }

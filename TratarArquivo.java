@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -12,11 +13,15 @@ import java.io.IOException;
  */
 public class TratarArquivo {
     String caminho;
+
+    /** @param caminho */
     public TratarArquivo(String caminho){
         this.caminho=caminho;
     }
     //======= Criar Arquivo =======
-    public void criarArq(String nomeArq){
+    /** @param nomeArq
+     * Cria um arquivo. */
+        public void criarArq(String nomeArq){
         try{
             File arq = new File(caminho+"\\"+nomeArq);
             arq.createNewFile();
@@ -27,17 +32,33 @@ public class TratarArquivo {
     
     //======= Ler Dados =======
     public String lerDados(String arq){
-        String linha="";//Ler linha-a-linha.
-        String conteudo="";//Armazena conteúdo.
+        String line="";//Ler line-a-line.
+        String content="";//Armazena conteúdo.
         try{
-            BufferedReader br= new BufferedReader(new FileReader(caminho + arq));
-            while((linha = br.readLine())!=null){
-                conteudo += linha + "\n";
+            BufferedReader br= new BufferedReader(new FileReader(caminho +"\\"+ arq));
+            while((line = br.readLine())!=null){
+                content += line + "\n";
             }
-            br.close();//Fecha o arquivo.
+            br.close();
         }catch(IOException e){
-            System.out.println("Erro ao gravar dados no arquivo!");
+            System.out.println("Erro ao ler dados no arquivo!"+e);
         }
-        return conteudo;
+        return content;
+    }
+    
+    //======= Gravar Dados =======
+    /** Grava dados no arquivo especificado
+     * @param dados.
+     * @param arq*/
+    public void gravarDados(String dados, String arq){
+        try{
+            BufferedWriter bw = new BufferedWriter(new FileWriter(caminho+"\\"+arq));
+            bw.write(dados);
+            bw.flush();
+            bw.close();
+            System.out.println("Dados gravados!!!");
+        }catch(IOException e){
+            System.out.println("Erro ao gravar no arquivo!"+e);
+        }
     }
 }
