@@ -104,8 +104,24 @@ public class Banco {
     /**
      * ======= Atualizar Dados =======
      * @param dados*/
-    public void atualizarDados(String dados){
-    
+    public void atualizarDados(int matricula, String nome, String curso, String disciplina, int turma, int ano, int semestre){
+        try{
+            String sql="update alunos set nome=?, curso=?, disciplina=?, turma=?, ano=?, semestre=? where matricula = ?";
+            PreparedStatement ps=conectarBanco().prepareStatement(sql);
+            ps.setInt(7, matricula);
+            ps.setString(1, nome);
+            ps.setString(2, curso);
+            ps.setString(3, disciplina);
+            ps.setInt(4, turma);
+            ps.setInt(5, ano);
+            ps.setInt(6, semestre);
+            ps.executeUpdate();//Atualiza.
+            System.out.println("Atualização concluída com sucesso!");
+            ps.close();
+            desconectarBanco();
+        }catch(SQLException e){
+            System.out.println("Erro ao atualizar dados."+e);
+        }
     }
     
     //======= Apagar Dados =======

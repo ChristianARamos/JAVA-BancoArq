@@ -32,8 +32,7 @@ public class P1POO {
         Banco db = new Banco();
         //db.apagarDados();
         db.conectarBanco();
-        db.inserirDados(92164, "Beltrano de Tal", "CST Análise e Desenvolvimento de Sistemas",
-                "POOII", 2, 2013, 5);
+        //db.atualizarDados(92163, "Siclano Moraes de Taborda", "Administração", "Empreendedorismo", 4, 2015, 1);
         System.out.println(db.listarDados());
     }
 }
