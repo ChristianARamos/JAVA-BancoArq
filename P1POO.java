@@ -1,5 +1,7 @@
 /*
  * Christian de Avila Ramos.
+ *//*
+ * Christian de Avila Ramos.
  */
 
 package br.graduacao.principal;
@@ -7,6 +9,7 @@ package br.graduacao.principal;
 import br.graduacao.banco.Banco;
 import br.graduacao.tratativa.TratarArquivo;
 import br.graduacao.tratativa.TratarPasta;
+import br.graduacao.tratativa.TratarZip;
 
 /**
  *
@@ -20,22 +23,24 @@ public class P1POO {
     public static void main(String[] args) {
         String caminho="I:\\POOII"; //Objetivo 1
         String nomeTabela="alunos";
-        //----------------------------------------
-        TratarPasta tp = new TratarPasta(caminho);
-        //tp.validarArq();// Objetivo 2 e 3
         
-        //----------------------------------------
         Banco db = new Banco();
-        db.conectarBanco();
+        TratarPasta tp = new TratarPasta(caminho);
+        TratarArquivo ta = new TratarArquivo(caminho);
         //db.criarTabela(nomeTabela);
+        
+        //------- Objetivos ----------------------
+        //tp.validarArq();// Objetivo 2 e 3
         //db.listarDados(nomeTabela);
         //db.apagarDados(nomeTabela);
         //-----------------------------------------
-        TratarArquivo ta = new TratarArquivo(caminho);
-        //ta.criarArq("Teste000.txt");
+
+        //ta.criarArq("Zero1.txt");
         //String dados = ta.lerDadosArqTxt("Teste 1.txt");
-        System.out.println(ta.lerDadosArq("AnexoI.csv"));
-        //ta.gravarDados(dados, "Teste000.txt");
+        //ta.lerDadosArq("AnexoI.csv", nomeTabela);
+        
+        TratarZip tz = new TratarZip(caminho);
+        tz.verifacarZip();
     }
 }
 /*

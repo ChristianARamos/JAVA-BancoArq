@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package br.graduacao.tratativa;
 
 import br.graduacao.banco.Banco;
@@ -46,24 +49,35 @@ public class TratarArquivo {
          * parâmetro retornando um String.
          *
          * @param arq
-         * @return
+         * @param nomeTabela
          */
-    public String lerDadosArq(String arq) {
-        String line="";//Ler linha-a-linha.
-        String content="";//Armazena conteúdo.
+    public void lerDadosArq(String arq, String nomeTabela) {
+        String line;//Ler linha-a-linha.
+        String[] content;//Armazena conteúdo.
+        String nome, curso, disc;
+        int mat, turma, ano, sem;
         try {
             BufferedReader br = new BufferedReader(new FileReader(caminho + "\\" + arq));
             Banco db = new Banco();
             br.readLine();
             while ((line = br.readLine()) != null) {
-                content+=line+"\n";
+                content=line.split(",");
+                mat=Integer.valueOf(content[0].trim());
+                nome=content[1].trim();
+                curso=content[2].trim();
+                disc=content[3].trim();
+                turma=Integer.valueOf(content[4].trim());
+                ano=Integer.valueOf(content[5].trim());
+                sem=Integer.valueOf(content[6].trim());
+                db.inserirDados(nomeTabela, mat, nome, curso, disc, turma, ano, sem);
+                System.out.println("Dados inseridos no banco com sucesso!");
             }
             System.out.println("------------------------------------");
             br.close();
+            System.out.println("Arquivo "+arq+" fechado!");
         } catch (IOException e) {
             System.out.println("Erro ao ler dados no arquivo!" + e);
         }
-        return content;
     }
 
     /**
@@ -73,13 +87,13 @@ public class TratarArquivo {
      * @param dados.
      * @param arq
      */
-    public void gravarDados(String dados, String arq) {
+    public void gravarDadosArqTxt(String dados, String arq) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(caminho + "\\" + arq));
             bw.write(dados);
             bw.flush();
             bw.close();
-            //System.out.println("Dados gravados!!!");
+            System.out.println("Dados gravados!!!\nArquivo fechado!");
         } catch (IOException e) {
             System.out.println("Erro ao gravar no arquivo!" + e);
         }

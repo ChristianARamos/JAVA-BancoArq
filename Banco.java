@@ -26,7 +26,7 @@ public class Banco {
     public Banco() {
         try {
             Class.forName("org.postgresql.Driver");
-            System.out.println("PostgreSQL - Driver carregado!");
+            System.out.println("Driver do PostgreSQL carregado com sucesso!");
 
         } catch (ClassNotFoundException e) {
             System.out.println("Erro ao carregar o driver do banco PostgreSQL." + e);
@@ -36,12 +36,13 @@ public class Banco {
     /**
      * O método conectarBanco faz a conexão com o banco de dados utilizando o
      * driver específico. Retorna a conexão.
+     * @return 
      */
     public Connection conectarBanco() {
         if (connec == null) {
             try {
                 connec = DriverManager.getConnection(URL + DB, OWNER, PASS);
-                System.out.println(DB + " conectado com sucesso!");
+                System.out.println("DB " + DB + " conectado com sucesso!");
             } catch (SQLException e) {
                 System.out.println("Erro ao conectar banco " + DB + "." + e);
             }
@@ -55,7 +56,7 @@ public class Banco {
         try {
             connec.close();
             connec = null;
-            System.out.println(DB + " desconectado!");
+            System.out.println("DB "+ DB + " desconectado!");
         } catch (SQLException e) {
             System.out.println("Erro ao fechar o banco de dados!" + e);
         }
@@ -99,7 +100,7 @@ public class Banco {
      * @param nomeTabela
      * @return 
      */
-    public String listarDados(String nomeTabela) {
+    public void listarDados(String nomeTabela) {
         String result = "";
         try {
             String sql = "select * from "+nomeTabela;
@@ -115,7 +116,7 @@ public class Banco {
         } catch (SQLException e) {
             System.out.println("Erro ao listar dados.\n" + e);
         }
-        return result;
+        System.out.println(result);
     }
 
     /**
