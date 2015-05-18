@@ -19,21 +19,23 @@ public class P1POO {
      */
     public static void main(String[] args) {
         String caminho="I:\\POOII"; //Objetivo 1
-        
+        String nomeTabela="alunos";
+        //----------------------------------------
         TratarPasta tp = new TratarPasta(caminho);
         //tp.validarArq();// Objetivo 2 e 3
         
-        
+        //----------------------------------------
+        Banco db = new Banco();
+        db.conectarBanco();
+        //db.criarTabela(nomeTabela);
+        //db.listarDados(nomeTabela);
+        //db.apagarDados(nomeTabela);
+        //-----------------------------------------
         TratarArquivo ta = new TratarArquivo(caminho);
         //ta.criarArq("Teste000.txt");
-        //String dados = ta.lerDados("Teste 1.txt");
+        //String dados = ta.lerDadosArqTxt("Teste 1.txt");
+        System.out.println(ta.lerDadosArq("AnexoI.csv"));
         //ta.gravarDados(dados, "Teste000.txt");
-        
-        Banco db = new Banco();
-        //db.apagarDados();
-        db.conectarBanco();
-        //db.atualizarDados(92163, "Siclano Moraes de Taborda", "Administração", "Empreendedorismo", 4, 2015, 1);
-        System.out.println(db.listarDados());
     }
 }
 /*

@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 /**
- * 
+ * A classe Tratar pasta cria e apaga pastas; valida e copia arquivos.
  * @author ChristianRamos
  */
 public class TratarPasta {
@@ -15,7 +15,10 @@ public class TratarPasta {
     public TratarPasta(String caminho){
         this.caminho=caminho;
     }
-    //======= Criar Pasta =======
+    /**
+     * O método criarPasta cria uma pasta com o nome passado como parâmetro.
+     * @param nomePasta
+     */
     public void criarPasta(String nomePasta){
         try{
             new File(caminho+"\\"+nomePasta).mkdir();
@@ -25,7 +28,10 @@ public class TratarPasta {
         }
     }
     
-    //======= Apagar Pasta =======
+    /**
+    * O método apagarPasta deleta a pasta especificada pelo parâmetro.
+     * @param nomePasta
+    */
     public void apagarPasta(String nomePasta){
         try{
             new File(caminho+"\\"+nomePasta).delete();
@@ -34,8 +40,13 @@ public class TratarPasta {
         }
     }
     
-    //======= Copiar Arquivo =======
-    //TratarPasta.copiarArq("Drive:\\PastaOrigem\\ArqOrigem.ext", "Drive:\\PastaDest\\ArqDest.ext");
+    /**
+     * O método copiarArq copia um arquivo de acordo com os parâmetros origem e
+     * destino.
+     * Ex.://TratarPasta.copiarArq("Drive:\\PastaOrigem\\ArqOrigem.ext", "Drive:\\PastaDest\\ArqDest.ext");
+     * @param origem
+     * @param destino
+     */
     public void copiarArq(String origem, String destino){
         try{
             BufferedInputStream in = new BufferedInputStream(new FileInputStream(origem));
@@ -58,7 +69,12 @@ public class TratarPasta {
         }
     }
     
-    //======= Tratar Pasta =======    
+    /**
+     * O método validarArq faz a validação da pasta, verificando a existência de
+     * arquivos com tamanho inferior ou igual a 0.
+     * Arquivos menor ou igual a 0 são movidos para uma pasta chamada "Error"
+     * criada pelo próprio método.
+     */
     public void validarArq(){
         try{
             File arq = new File(caminho);
