@@ -24,6 +24,10 @@ public class TratarZip {
         this.caminho = caminho;
         File dir = new File(caminho+"\\");
     }
+
+    TratarZip() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public void verifacarZip(){
         File arq = new File(caminho);
@@ -34,7 +38,7 @@ public class TratarZip {
                     System.out.println("Descompactando o conteudo do arquivo "+conteudo.getName());
                     extrairZip(conteudo, arq);
                     conteudo.delete();
-                    System.out.println("Arquivo ZIP deletado!");
+                    System.out.println("Arquivo ZIP apagado!");
                 } catch (IOException ex) {
                     Logger.getLogger(TratarZip.class.getName()).log(Level.SEVERE, null, ex);
                 }

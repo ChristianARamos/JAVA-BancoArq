@@ -26,7 +26,7 @@ public class Banco {
     public Banco() {
         try {
             Class.forName("org.postgresql.Driver");
-            System.out.println("Driver do PostgreSQL carregado com sucesso!");
+            //System.out.println("Driver do PostgreSQL carregado com sucesso!");
 
         } catch (ClassNotFoundException e) {
             System.out.println("Erro ao carregar o driver do banco PostgreSQL." + e);
@@ -42,7 +42,7 @@ public class Banco {
         if (connec == null) {
             try {
                 connec = DriverManager.getConnection(URL + DB, OWNER, PASS);
-                System.out.println("DB " + DB + " conectado com sucesso!");
+                //System.out.println("DB " + DB + " conectado com sucesso!");
             } catch (SQLException e) {
                 System.out.println("Erro ao conectar banco " + DB + "." + e);
             }
@@ -56,7 +56,7 @@ public class Banco {
         try {
             connec.close();
             connec = null;
-            System.out.println("DB "+ DB + " desconectado!");
+            //System.out.println("DB "+ DB + " desconectado!");
         } catch (SQLException e) {
             System.out.println("Erro ao fechar o banco de dados!" + e);
         }
@@ -89,10 +89,11 @@ public class Banco {
             ps.execute();
             ps.close();
             desconectarBanco();
-            System.out.println("Dados inseridos!");
+            //System.out.println("Dados inseridos!");
         } catch (SQLException e) {
             System.out.println("Erro ao inserir dados no banco.\n" + e);
         }
+        System.out.println("Dados inseridos!");
     }
     /**
      * O método listarDados lista dados da tabela do banco de dados, retornando
@@ -182,7 +183,7 @@ public class Banco {
             desconectarBanco();
             
         }catch(SQLException e){
-            System.out.println("Erro ao criar tabela!"+e);
+            //System.out.println("Erro ao criar tabela!"+e);
         }
     }
 }
